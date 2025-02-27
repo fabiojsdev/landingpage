@@ -2,35 +2,40 @@ import { Link as LinkScroll } from "react-scroll";
 import { useEffect, useState } from "react";
 import clsx from "clsx";
 
-const Header = () => {
+interface NavLinkProps {
+  title: string;
+  onClick: () => void;
+}
+
+const NavLink: React.FC<NavLinkProps> = ({ title, onClick }) => (
+  <LinkScroll
+    onClick={onClick}
+    to={title}
+    offset={-100}
+    spy
+    smooth
+    activeClass="nav-active"
+    className="base-bold text-p4 uppercase transition-colors duration-500 cursor-pointer hover:text-p1 max-lg:my-4 max-lg:h5"
+  >
+    {title}
+  </LinkScroll>
+);
+
+const Header: React.FC = () => {
   const [hasScrolled, setHasScrolled] = useState(false);
-  const [isOpen, setIsOpen] = useState(false); // Corrigido para 'setIsOpen'
+  const [isOpen, setIsOpen] = useState(false);
 
   useEffect(() => {
-    const handScroll = () => {
+    const handleScroll = () => {
       setHasScrolled(window.scrollY > 32);
     };
 
-    window.addEventListener("scroll", handScroll);
+    window.addEventListener("scroll", handleScroll);
 
     return () => {
-      window.removeEventListener("scroll", handScroll);
+      window.removeEventListener("scroll", handleScroll);
     };
   }, []);
-
-  const NavLink = ({ title }) => (
-    <LinkScroll
-    onClick={()=> setIsOpen(false)}
-      to={title}
-      offset={-100}
-      spy
-      smooth
-      activeClass="nav-active"
-      className="base-bold text-p4 uppercase transition-colors duration-500 cursor-pointer hover:text-p1 max-lg:my-4 max-lg:h5"
-    >
-      {title}
-    </LinkScroll>
-  );
 
   return (
     <header
@@ -54,9 +59,9 @@ const Header = () => {
             <nav className="max-lg:relative max-lg:z-2 max-lg:my-auto">
               <ul className="flex max-lg:block max-lg:px-12">
                 <li className="nav-li">
-                  <NavLink title="features" />
+                  <NavLink title="features" onClick={() => setIsOpen(false)} />
                   <div className="dot" />
-                  <NavLink title="pricing" />
+                  <NavLink title="pricing" onClick={() => setIsOpen(false)} />
                 </li>
 
                 <li className="nav-logo">
@@ -79,9 +84,9 @@ const Header = () => {
                 </li>
 
                 <li className="nav-li">
-                  <NavLink title="faq" />
+                  <NavLink title="faq" onClick={() => setIsOpen(false)} />
                   <div className="dot" />
-                  <NavLink title="download" />
+                  <NavLink title="download" onClick={() => setIsOpen(false)} />
                 </li>
               </ul>
             </nav>
@@ -107,7 +112,7 @@ const Header = () => {
 
         <button
           className="lg:hidden z-2 size-10 border-2 border-s4/25 rounded-full flex justify-center items-center"
-          onClick={() => setIsOpen((prevState) => !prevState)} // Corrigido para 'setIsOpen'
+          onClick={() => setIsOpen((prevState) => !prevState)}
         >
           <img
             src={`/images/${isOpen ? "close" : "magic"}.svg`}

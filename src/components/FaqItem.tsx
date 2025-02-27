@@ -1,9 +1,18 @@
 import clsx from "clsx";
 import { useState } from "react";
-import { motion, AnimatePresence } from "framer-motion"; // Importe o framer-motion
+import { motion, AnimatePresence } from "framer-motion";
 
-const FaqItem = ({ item, index }) => {
-  const [activeId, setActiveId] = useState(null);
+interface FaqItemProps {
+  item: {
+    id: string;
+    question: string;
+    answer: string;
+  };
+  index: number;
+}
+
+const FaqItem: React.FC<FaqItemProps> = ({ item, index }) => {
+  const [activeId, setActiveId] = useState<string | null>(null);
   const active = activeId === item.id;
 
   return (
@@ -39,14 +48,13 @@ const FaqItem = ({ item, index }) => {
         </div>
       </div>
 
-      {/* Substitua o SlideDown pelo AnimatePresence e motion.div */}
       <AnimatePresence>
         {activeId === item.id && (
           <motion.div
-            initial={{ height: 0, opacity: 0 }} // Estado inicial (fechado)
-            animate={{ height: "auto", opacity: 1 }} // Estado animado (aberto)
-            exit={{ height: 0, opacity: 0 }} // Estado ao fechar
-            transition={{ duration: 0.3 }} // Duração da animação
+            initial={{ height: 0, opacity: 0 }}
+            animate={{ height: "auto", opacity: 1 }}
+            exit={{ height: 0, opacity: 0 }}
+            transition={{ duration: 0.3 }}
             className="body-3 px-7 py-3.5"
           >
             {item.answer}

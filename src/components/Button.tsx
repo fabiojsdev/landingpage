@@ -1,7 +1,17 @@
 import clsx from "clsx";
+import React from "react";
 import Marker from "./Marker";
 
-const Button = ({
+interface ButtonProps {
+  icon?: string;
+  children: React.ReactNode;
+  href?: string;
+  containerClassName?: string;
+  onClick?: () => void;
+  markerFill?: string;
+}
+
+const Button: React.FC<ButtonProps> = ({
   icon,
   children,
   href,
@@ -13,7 +23,7 @@ const Button = ({
     <>
       <span className="relative flex items-center min-h-[60px] px-4 g4 rounded-2xl inner-before group-hover:before:opacity-100 overflow-hidden">
         <span className="absolute -left-[1px]">
-          <Marker markerFill={markerFill} />
+          <Marker fill={markerFill || "#2EF2FF"} /> {/* Corrigido para usar a prop `fill` */}
         </span>
         {icon && (
           <img
@@ -28,9 +38,10 @@ const Button = ({
         </span>
       </span>
 
-      <span className="glow-before glow-after"/>
+      <span className="glow-before glow-after" />
     </>
   );
+
   return href ? (
     <a
       className={clsx(

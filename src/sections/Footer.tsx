@@ -1,6 +1,14 @@
+import React from "react";
 import { socials } from "../constants/index.jsx";
 
-const Footer = () => {
+interface Social {
+  id: string;
+  url: string;
+  icon: string;
+  title: string;
+}
+
+const Footer: React.FC = () => {
   return (
     <footer>
       <div className="container py-10">
@@ -8,20 +16,20 @@ const Footer = () => {
           <div className="small-compact flex flex-1 flex-wrap items-center justify-center gap-5">
             <p className="opacity-70">Copyright, Connections Tree</p>
           </div>
-            <div className="flex items-center justify-center sm:ml-auto">
-              <p className="legal-after relative mr-9 text-p5 transition-allduration 500 hover:text-p1">
-                Privacy Policy
-              </p>
-              <p className="text-p5 transition-allduration 500 hover:text-p1">
-                Terms of Use
-              </p>
-            </div>
+          <div className="flex items-center justify-center sm:ml-auto">
+            <p className="legal-after relative mr-9 text-p5 transition-all duration-500 hover:text-p1">
+              Privacy Policy
+            </p>
+            <p className="text-p5 transition-all duration-500 hover:text-p1">
+              Terms of Use
+            </p>
+          </div>
 
           <ul className="flex flex-1 justify-center gap-3 max-md:mt-10 md:justify-end">
-            {socials.map(({ id, url, icon, title }) => (
+            {socials.map(({ id, url, icon, title }: Social) => (
               <li key={id}>
                 <a href={url} className="social-icon">
-                    <img src={icon} alt="title" className="size-1/3 object-contain" />
+                  <img src={icon} alt={title} className="size-1/3 object-contain" />
                 </a>
               </li>
             ))}

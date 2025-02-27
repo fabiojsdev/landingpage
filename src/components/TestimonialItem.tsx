@@ -1,6 +1,20 @@
 import clsx from "clsx";
+import React from "react";
 
-const TestimonialItem = ({ item, containerClassName }) => {
+interface TestimonialItemProps {
+  item: {
+    comment: string;
+    avatarUrl: string;
+    name: string;
+    role: string;
+  };
+  containerClassName?: string;
+}
+
+const TestimonialItem: React.FC<TestimonialItemProps> = ({
+  item,
+  containerClassName,
+}) => {
   return (
     <div
       className={clsx(
@@ -25,4 +39,5 @@ const TestimonialItem = ({ item, containerClassName }) => {
     </div>
   );
 };
+
 export default TestimonialItem;
