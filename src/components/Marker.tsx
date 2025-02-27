@@ -1,10 +1,10 @@
 import React from "react";
 
 interface MarkerProps {
-  fill: string;
+  fill?: string; // Tornando a prop `fill` opcional
 }
 
-const Marker: React.FC<MarkerProps> = ({ fill }) => {
+const Marker: React.FC<MarkerProps> = ({ fill = "#2EF2FF" }) => { // Valor padrão para `fill`
   return (
     <svg
       width="8"
